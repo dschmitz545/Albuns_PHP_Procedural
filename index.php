@@ -2,9 +2,11 @@
 
   include __DIR__ . "/includes/dados.php";
 
-  $b1 = $_GET['b1'];
-  $b2 = $_GET['b2'];
+  $estilo_escolhido = isset($_GET['estilo']) ? $_GET['estilo'] : null;
+  //$b1 = $_GET['b1'];
+  //$b2 = $_GET['b2'];
   //index.php?b1=Diego&b2=Schmitz
+  //http://localhost:9999/index.php?estilo=samba
 
 ?>
 <!doctype html>
@@ -72,27 +74,41 @@
             Texto qualquer para album
           </p>
           <p>
-            <a href="#" class="btn btn-primary my-2">
-              <?=$b1?>
+          <a href="index.php" class="btn btn-primary my-2">
+            Todos os estilos
+          </a>
+            <?php 
+              foreach ($estilos as $estilo): 
+                $url = 'index.php?estilo=' . $estilo;
+            ?>
+            <a href="<?=$url?>" class="btn btn-primary my-2">
+             <!-- <?=$b1?> -->
+             <!-- Samba -->
+             <?=$estilo?>
             </a>
-            <a href="#" class="btn btn-secondary my-2">
-            <?=$b2?>
-            </a>
-          </p>
+            <?php endforeach; ?>
+            </p>
         </div>
       </section>
 
       <div class="album py-5 bg-light">
         <div class="container">
-
           <div class="row">
+          <?php if (! in_array($estilo_escolhido, $estilos) && $estilo_escolhido != null): ?>
+          <div class="col-sm-12">
+            <div class="alert alert-danger">
+              <p>O estilo escolhido não foi encontrado</p>
+            </div>
+          </div>
+          <?php endif;?>
 
-          <?php foreach ($albuns as $album) { ?>
-
-
+          <?php 
+            foreach ($albuns as $album):
+              if ($estilo_escolhido == null || $album['estilo'] == $estilo_escolhido):
+          ?>
             <div class="col-sm-6 col-md-4 col-lg-3">
               <div class="card mb-4 box-shadow">
-                <img class="card-img-top" data-src="holder.js/100px225?theme=thumb&bg=55595c&fg=eceeef&text=Thumbnail" alt="Card image cap">
+                <img class="card-img-top" src="<?=$album['capa']?>" alt="Card image cap">
                 <div class="card-body">
                   <p class="card-text">
                     <?=$album['titulo']?>:
@@ -104,13 +120,16 @@
                       <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                     </div>
                     <small class="text-muted">
-                      <?php echo $album['duracao']?>
+                      <?php echo $album['estilo']?>
                     </small>
                   </div>
                 </div>
               </div>
             </div>
-          <?php } ?>
+          <?php
+                endif;
+              endforeach;
+          ?>
           </div>
         </div>
       </div>
