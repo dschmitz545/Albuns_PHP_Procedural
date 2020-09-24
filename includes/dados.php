@@ -1,12 +1,27 @@
 <?php
- $titulo = "Meu Site PHP";
- $subtitulo = "Primeira tela PHP+HTML";
 
+function retornar_titulo(){
+
+    return "Meu Site PHP";
+
+}
+
+function retornar_subtitulo(){
+
+    return "Primeira tela PHP+HTML";
+
+}
  
-$estilos = array('Samba','Pop Rock');
 
-// Array no estilo do javascript
- $albuns = [
+function listar_estilos() {
+
+    return ['Samba','Pop Rock'];
+
+}
+
+function listar_albuns()
+{
+ return [
      [
          'titulo' => 'Shank',
          'descricao' => 'Skank 91',
@@ -29,3 +44,19 @@ $estilos = array('Samba','Pop Rock');
         'estilo' => 'Samba'
     ],
  ];
+}
+
+function recuperar_album($codigoX)
+{
+    $albuns = listar_albuns();
+
+    if (isset($albuns[$codigoX])) {
+
+        $album = $albuns[$codigoX];
+        return $album;
+
+    } else {
+        return false;
+    }
+
+}

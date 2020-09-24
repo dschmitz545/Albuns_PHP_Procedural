@@ -5,7 +5,7 @@
     <meta name="author" content="">
     <link rel="icon" href="https://getbootstrap.com/docs/4.0/assets/img/favicons/favicon.ico">
 
-    <title><?=$titulo?></title>
+    <title><?=retornar_titulo()?></title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/album/">
 

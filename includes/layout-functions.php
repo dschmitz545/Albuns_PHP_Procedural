@@ -14,15 +14,17 @@ function criar_jumbotron($titulo, $descricao, array $estilos)
     <section class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">
-                '.$titulo.'
+                %s
             </h1>
             <p class="lead text-muted">
-                '.$descricao.'
+                %s
             </p>
-            '.$lista_html.'
+                %s
          </div>
     </section>
     ';
+
+    $html = sprintf($html, $titulo, $descricao, $lista_html);
 
     return $html;
 }

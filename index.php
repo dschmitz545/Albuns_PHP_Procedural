@@ -4,6 +4,9 @@
   include __DIR__ . "/includes/layout-functions.php";
 
   $estilo_escolhido = isset($_GET['estilo']) ? $_GET['estilo'] : null;
+
+  $estilos = listar_estilos();
+  $albuns = listar_albuns();
   //$b1 = $_GET['b1'];
   //$b2 = $_GET['b2'];
   //index.php?b1=Diego&b2=Schmitz
@@ -21,7 +24,11 @@
 
   <main role="main">
 
-  <?=criar_jumbotron('Álbuns em Destaque', 'Aproveite o tempo livre e curta uma boa música', $estilos)?>
+  <?=criar_jumbotron(
+    'Álbuns em Destaque', 
+    'Aproveite o tempo livre e curta uma boa música', 
+    $estilos)
+  ?>
     
     <div class="album py-5 bg-light">
       <div class="container">
