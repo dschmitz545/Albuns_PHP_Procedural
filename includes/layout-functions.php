@@ -1,30 +1,27 @@
 <?php
 
-function criar_jumbotron($titulo, $descricao, array $estilos)
+function retornar_titulo(){
+
+    return "Meus Álbuns Preferidos";
+
+}
+
+function retornar_subtitulo(){
+
+    return "Primeira tela PHP+HTML";
+
+}
+
+function criar_jumbotron($titulo, $descricao, array $estilos, $escolha = null)
 {
-    $lista_html = '<p>';
-    $lista_html .= '<a href="index.php" class="btn btn-primary my-2">Todos</a>';
-    foreach ($estilos as $estilo) {
-        $url = 'index.php?estilo=' . $estilo;
-        $lista_html .= "<a href=\"$url\">$estilo</a>";
+    include __DIR__ . '/layout/templates/jumbotron.php';
+}
+
+function criar_lista_albuns($albuns, $estilo_escolhido)
+{
+    foreach ($albuns as $codigo => $album) {
+        if ($estilo_escolhido == null || $album['estilo'] == $estilo_escolhido) {
+            include __DIR__ . '/layout/templates/lista_albuns.php';
+        }
     }
-    $lista_html .= '</p>';
-
-    $html = '
-    <section class="jumbotron text-center">
-        <div class="container">
-            <h1 class="jumbotron-heading">
-                %s
-            </h1>
-            <p class="lead text-muted">
-                %s
-            </p>
-                %s
-         </div>
-    </section>
-    ';
-
-    $html = sprintf($html, $titulo, $descricao, $lista_html);
-
-    return $html;
 }

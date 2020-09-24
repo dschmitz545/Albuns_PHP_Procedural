@@ -1,16 +1,12 @@
 <?php
 
-  include __DIR__ . "/includes/dados.php";
-  include __DIR__ . "/includes/layout-functions.php";
+  include __DIR__ . "/includes/dados/_dados.php";
+  include __DIR__ . '/includes/layout-functions.php';
 
-  $estilo_escolhido = isset($_GET['estilo']) ? $_GET['estilo'] : null;
+  $estilo_escolhido = $_GET['estilo'] ?? null; // coalesce
 
   $estilos = listar_estilos();
   $albuns = listar_albuns();
-  //$b1 = $_GET['b1'];
-  //$b2 = $_GET['b2'];
-  //index.php?b1=Diego&b2=Schmitz
-  //http://localhost:9999/index.php?estilo=samba
 
 ?>
 <!doctype html>
@@ -27,8 +23,9 @@
   <?=criar_jumbotron(
     'Álbuns em Destaque', 
     'Aproveite o tempo livre e curta uma boa música', 
-    $estilos)
-  ?>
+    $estilos,
+    $estilo_escolhido
+  );?>
     
     <div class="album py-5 bg-light">
       <div class="container">
@@ -41,33 +38,8 @@
         </div>
           <?php endif;?>
 
-          <?php 
-            foreach ($albuns as $codigoX => $album):
-              if ($estilo_escolhido == null || $album['estilo'] == $estilo_escolhido):
-          ?>
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="card mb-4 box-shadow">
-              <img class="card-img-top" src="<?=$album['capa']?>" alt="Card image cap">
-              <div class="card-body">
-                <p class="card-text">
-                  <?=$album['titulo']?>:
-                  <?=$album['descricao']?>
-                </p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <a href="ver.php?codigo=<?=$codigoX?>" type="button" class="btn btn-sm btn-outline-secondary">Abrir</a>
-                  </div>
-                  <small class="text-muted">
-                    <?php echo $album['estilo']?>
-                  </small>
-                </div>
-              </div>
-            </div>
-          </div>
-        <?php
-              endif;
-            endforeach;
-        ?>
+          <?=criar_lista_albuns($albuns, $estilo_escolhido)?>
+
         </div>
       </div>
     </div>
